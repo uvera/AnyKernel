@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=Jason Kernel by @uvera
+kernel.string=Kernel by @uvera
 do.devicecheck=1
 do.modules=0
 do.systemless=1
