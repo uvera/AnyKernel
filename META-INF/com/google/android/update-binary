@@ -3,7 +3,7 @@
 # osm0sis @ xda-developers
 
 OUTFD=/proc/self/fd/$2;
-ZIPFILE="$3";
+export ZIPFILE="$3";
 
 ps | grep zygote | grep -v grep >/dev/null && BOOTMODE=true || BOOTMODE=false;
 $BOOTMODE || ps -A 2>/dev/null | grep zygote | grep -v grep >/dev/null && BOOTMODE=true;
@@ -222,6 +222,19 @@ do_devicecheck() {
   if [ ! "$match" ]; then
     abort " " "Unsupported device. Aborting...";
   fi;
+
+  case "$ZIPFILE" in
+    *"led"*|*led*)
+      ui_print "Patching kernel for old-LED path";
+      export oldled=true;
+    ;;
+  esac;
+  if [[ "$oldled" == "true" ]]; then
+    rm /tmp/anykernel/treble/sdm660-mtp-lavender.dtb;
+  else
+    rm /tmp/anykernel/treble/sdm660-mtp-lavender-old-led.dtb;
+  fi;
+
   if [ "$(file_getprop /system/build.prop ro.treble.enabled)" == "true" ]; then
     dtb=/tmp/anykernel/treble;
 	ui_print "Treble ROM detected!";
