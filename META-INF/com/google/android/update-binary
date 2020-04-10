@@ -224,7 +224,7 @@ do_devicecheck() {
   fi;
 
   case "$ZIPFILE" in
-    *"led"*|*led*)
+    *"led"*|*led*|*"LED"*|*LED*)
       ui_print "Patching kernel for old-LED path";
       export oldled=true;
     ;;
